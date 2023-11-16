@@ -110,39 +110,6 @@ namespace WindowsFormsApp1
             AddRec.Owner = this;
             AddRec.ShowDialog();
         }
-               
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog OpenDlg = new OpenFileDialog();
-            if (OpenDlg.ShowDialog() == DialogResult.OK)
-            {
-                StreamReader reader = new StreamReader(OpenDlg.FileName, Encoding.Default);
-                richTextBox1.Text = reader.ReadToEnd();
-                reader.Close();
-            }
-            OpenDlg.Dispose();
-        }
-
-        private void сохранитьToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            SaveFileDialog SaveDlg = new SaveFileDialog();
-            if (SaveDlg.ShowDialog() == DialogResult.OK)
-            {
-                StreamWriter Writer = new StreamWriter(SaveDlg.FileName);
-                for (int i = 0; i < listBox2.Items.Count; i++)
-                {
-                    Writer.WriteLine((string)listBox2.Items[i]);
-                }
-                Writer.Close();
-            }
-            SaveDlg.Dispose();
-        }
-
-        private void выходToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            Application.Exit();
-            MessageBox.Show("Информация о приложении и разработчике.");
-        }
 
         private void button14_Click(object sender, EventArgs e)
         {
@@ -158,26 +125,155 @@ namespace WindowsFormsApp1
 
         private void button11_Click(object sender, EventArgs e)
         {
+            listBox2.BeginUpdate();
+
+            List<object> selectedItems = new List<object>();
+
+            foreach (object item in listBox2.SelectedItems)
+            {
+                selectedItems.Add(item);
+            }
+
+            foreach (object item in selectedItems)
+            {
+                listBox2.Items.Remove(item);
+                if (!listBox3.Items.Contains(item))
+                {
+                    listBox3.Items.Add(item);
+                }
+            }
+
+            listBox2.EndUpdate();
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
             listBox3.BeginUpdate();
 
-            foreach (object Item in listBox2.SelectedItems)
+            List<object> selectedItems = new List<object>();
+
+            foreach (object item in listBox3.SelectedItems)
             {
-                listBox3.Items.Add(Item);
+                selectedItems.Add(item);
+            }
+
+            foreach (object item in selectedItems)
+            {
+                listBox3.Items.Remove(item);
+                if (!listBox2.Items.Contains(item))
+                {
+                    listBox2.Items.Add(item);
+                }
             }
 
             listBox3.EndUpdate();
         }
 
-        private void button12_Click(object sender, EventArgs e)
+        private void button9_Click(object sender, EventArgs e)
         {
-            listBox2.BeginUpdate();
-            foreach (object Item in listBox3.SelectedItems)
-            {
-                listBox2.Items.Add(Item);
-            }
-            listBox2.EndUpdate();
+            RemoveSelectedItems(listBox2);
+            RemoveSelectedItems(listBox3);
+        }
 
-            listBox3.Items.Remove(listBox3.SelectedItems);
+        private void RemoveSelectedItems(ListBox listBox)
+        {
+            listBox.BeginUpdate();
+
+            // Create a list to store the selected items to avoid modifying the collection while iterating
+            List<object> selectedItems = new List<object>();
+
+            foreach (object item in listBox.SelectedItems)
+            {
+                selectedItems.Add(item);
+            }
+
+            foreach (object item in selectedItems)
+            {
+                listBox.Items.Remove(item);
+            }
+
+            listBox.EndUpdate();
+        }
+
+        private void openToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            OpenFileDialog OpenDlg = new OpenFileDialog();
+            OpenDlg.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            if (OpenDlg.ShowDialog() == DialogResult.OK)
+            {
+                StreamReader reader = new StreamReader(OpenDlg.FileName, Encoding.Default);
+                richTextBox1.Text = reader.ReadToEnd();
+                reader.Close();
+            }
+            OpenDlg.Dispose();
+        }
+
+        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog SaveDlg = new SaveFileDialog();
+            SaveDlg.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            if (SaveDlg.ShowDialog() == DialogResult.OK)
+            {
+                StreamWriter Writer = new StreamWriter(SaveDlg.FileName);
+                for (int i = 0; i < listBox2.Items.Count; i++)
+                {
+                    Writer.WriteLine((string)listBox2.Items[i]);
+                }
+                Writer.Close();
+            }
+            SaveDlg.Dispose();
+        }
+
+        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Информация о приложении и разработчике.");
+            Application.Exit();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            if (comboBox2.SelectedIndex == 0)
+            {
+                List<string> items = new List<string>();
+                foreach (var item in listBox3.Items)
+                {
+                    items.Add(item.ToString());
+                }
+
+                items.Sort();
+
+                listBox1.Items.Clear();
+
+                foreach (var item in items)
+                {
+                    listBox3.Items.Add(item);
+                }
+                foreach (var item in items)
+                {
+                    item.Remove();
+                }
+            }
+            else if (comboBox2.SelectedIndex == 1)
+            {
+
+            }
+            else if (comboBox2.SelectedIndex == 2)
+            {
+
+            }
+            else if (comboBox2.SelectedIndex == 3)
+            {
+
+            }
+            else
+            {
+
+            }
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
