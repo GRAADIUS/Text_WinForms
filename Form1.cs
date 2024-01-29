@@ -242,38 +242,152 @@ namespace WindowsFormsApp1
 
                 items.Sort();
 
-                listBox1.Items.Clear();
+                listBox3.Items.Clear();
 
                 foreach (var item in items)
                 {
                     listBox3.Items.Add(item);
                 }
-                foreach (var item in items)
-                {
-                    item.Remove();
-                }
+                items.Clear();
             }
             else if (comboBox2.SelectedIndex == 1)
             {
+                List<string> items = new List<string>();
+                foreach (var item in listBox3.Items)
+                {
+                    items.Add(item.ToString());
+                }
 
+                items.Sort();
+                items.Reverse();
+                listBox3.Items.Clear();
+
+                foreach (var item in items)
+                {
+                    listBox3.Items.Add(item);
+                }
+
+                items.Clear();
             }
             else if (comboBox2.SelectedIndex == 2)
             {
+                List<string> items = new List<string>();
 
+                foreach (var item in listBox3.Items)
+                {
+                    items.Add(item.ToString());
+                }
+
+                items.Sort((x, y) => x.Length.CompareTo(y.Length));
+
+                listBox3.Items.Clear();
+                foreach (var item in items)
+                {
+                    listBox3.Items.Add(item);
+                }
+
+                items.Clear();
             }
             else if (comboBox2.SelectedIndex == 3)
             {
+                List<string> items = new List<string>();
 
-            }
-            else
-            {
+                foreach (var item in listBox3.Items)
+                {
+                    items.Add(item.ToString());
+                }
+
+                items = items.OrderByDescending(item => item.Length).ToList();
+
+                listBox3.Items.Clear();
+                foreach (var item in items)
+                {
+                    listBox3.Items.Add(item);
+                }
+
+                items.Clear();
 
             }
         }
 
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        private void button5_Click(object sender, EventArgs e)
         {
+            if (comboBox1.SelectedIndex == 0)
+            {
+                List<string> items = new List<string>();
+                foreach (var item in listBox2.Items)
+                {
+                    items.Add(item.ToString());
+                }
 
+                items.Sort();
+
+                listBox2.Items.Clear();
+
+                foreach (var item in items)
+                {
+                    listBox2.Items.Add(item);
+                }
+                items.Clear();
+            }
+            else if (comboBox1.SelectedIndex == 1)
+            {
+                List<string> items = new List<string>();
+                foreach (var item in listBox2.Items)
+                {
+                    items.Add(item.ToString());
+                }
+
+                items.Sort();
+                items.Reverse();
+                listBox2.Items.Clear();
+
+                foreach (var item in items)
+                {
+                    listBox2.Items.Add(item);
+                }
+                
+                items.Clear();
+            }
+            else if (comboBox1.SelectedIndex == 2)
+            {
+                List<string> items = new List<string>();
+
+                foreach (var item in listBox2.Items)
+                {
+                    items.Add(item.ToString());
+                }
+
+                items.Sort((x, y) => x.Length.CompareTo(y.Length));
+
+                listBox2.Items.Clear();
+                foreach (var item in items)
+                {
+                    listBox2.Items.Add(item);
+                }
+
+                items.Clear();
+            }
+            else if (comboBox1.SelectedIndex == 3)
+            {
+                List<string> items = new List<string>();
+
+                foreach (var item in listBox2.Items)
+                {
+                    items.Add(item.ToString());
+                }
+
+                items = items.OrderByDescending(item => item.Length).ToList();
+
+                listBox2.Items.Clear();
+                foreach (var item in items)
+                {
+                    listBox2.Items.Add(item);
+                }
+
+                items.Clear();
+
+            }
         }
     }
 }
